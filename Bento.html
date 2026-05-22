@@ -217,9 +217,7 @@
       cursor: pointer;
     }
 
-    .bento-card:hover {
-      filter: brightness(1.08) drop-shadow(0 4px 24px rgba(62, 130, 246, 0.28)) drop-shadow(0 0 48px rgba(62, 130, 246, 0.08));
-    }
+    .bento-card:hover {}
 
 
 
@@ -230,7 +228,7 @@
     /* 1. Scanline sweep */
     @keyframes c1-scanline-sweep {
       0% {
-        transform: translateX(-60px);
+        transform: translateX(-20px);
         opacity: 0;
       }
 
@@ -308,7 +306,7 @@
 
     /* Apply animations */
     #c1-scanline {
-      animation: c1-scanline-sweep 1.4s cubic-bezier(0.4, 0, 0.6, 1) 0.2s both;
+      display: none;
     }
 
     #c1-pill1-fill,
@@ -436,12 +434,12 @@
     @keyframes c2-chip-in {
       0% {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(10px) scale(1.11);
       }
 
       100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1.17);
       }
     }
 
@@ -476,24 +474,13 @@
       }
     }
 
-    /* Apply: beam */
+    /* Beam groups: static, revealed by JS mask sweep */
     #c2-beam-g1,
     #c2-beam-g2,
     #c2-beam-g3,
     #c2-beam-g4 {
-      animation: c2-beam-sweep 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.0s both;
-    }
-
-    #c2-beam-g2 {
-      animation-delay: 1.1s;
-    }
-
-    #c2-beam-g3 {
-      animation-delay: 1.15s;
-    }
-
-    #c2-beam-g4 {
-      animation-delay: 1.05s;
+      opacity: 1;
+      transform: none;
     }
 
     /* Apply: rings (radar) */
@@ -521,40 +508,55 @@
     /* Apply: chips */
     #c2-chip1 {
       animation: c2-chip-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 3.6s both;
+      transform-box: fill-box;
+      transform-origin: center center;
     }
 
     #c2-chip2 {
       animation: c2-chip-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 4.0s both;
+      transform-box: fill-box;
+      transform-origin: center center;
     }
 
     #c2-chip3 {
       animation: c2-chip-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 4.4s both;
+      transform-box: fill-box;
+      transform-origin: center center;
     }
 
-    /* Apply: score flicker on chips */
+    /* Apply: score flicker on chips + number colors */
     #c2-chip1 path:last-child {
       animation: c2-flicker 0.7s ease-in-out 4.4s both;
+      fill: #FB4C4E;
     }
 
     #c2-chip2 path:last-child {
       animation: c2-flicker 0.7s ease-in-out 4.8s both;
+      fill: #93E763;
     }
 
     #c2-chip3 path:last-child {
       animation: c2-flicker 0.7s ease-in-out 5.2s both;
+      fill: #FB4C4E;
     }
 
     /* Backdrop foreignObjects — hidden initially, shown alongside their element */
     #c2-chip1-bg {
       animation: c2-chip-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 3.6s both;
+      transform-box: fill-box;
+      transform-origin: center center;
     }
 
     #c2-chip2-bg {
       animation: c2-chip-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 4.0s both;
+      transform-box: fill-box;
+      transform-origin: center center;
     }
 
     #c2-chip3-bg {
       animation: c2-chip-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) 4.4s both;
+      transform-box: fill-box;
+      transform-origin: center center;
     }
 
     #c3-node-top-bg,
@@ -994,30 +996,6 @@
     .bento-init #c5-shield-stroke {
       animation-play-state: running;
     }
-
-    /* Hover: resume looping animations for that card */
-    #card-1:hover #c1-pill1-fill,
-    #card-1:hover #c1-pill1-stroke {
-      animation-play-state: running;
-    }
-
-    #card-2:hover #c2-ring-outer,
-    #card-2:hover #c2-ring-mid,
-    #card-2:hover #c2-ring-inner {
-      animation-play-state: running;
-    }
-
-    #card-3:hover #c3-ring-0,
-    #card-3:hover #c3-ring-1,
-    #card-3:hover #c3-ring-2,
-    #card-3:hover #c3-ring-3 {
-      animation-play-state: running;
-    }
-
-    #card-5:hover #c5-ring-outer,
-    #card-5:hover #c5-shield-stroke {
-      animation-play-state: running;
-    }
   </style>
 </head>
 
@@ -1050,7 +1028,7 @@
             d="M173.501 150.5V213.827C173.501 227.049 184.219 237.766 197.44 237.766H243.291C256.512 237.766 267.229 248.484 267.229 261.705V287.061C267.229 300.282 277.947 311 291.168 311H437.15"
             stroke="url(#paint2_linear_29_1960)" stroke-width="1.30519" />
           <path id="c1-branch-a" d="M216.572 237.945H243.21C256.431 237.945 267.149 248.663 267.149 261.884V286.981"
-            stroke="url(#paint3_linear_29_1960)" stroke-width="1.30519" stroke-linecap="round" />
+            stroke="#4C4D4D" stroke-width="1.30519" stroke-linecap="round" display="none" />
           <circle id="c1-btn-circle" cx="450.206" cy="311.162" r="15.0097" fill="#505050"
             stroke="url(#paint4_linear_29_1960)" stroke-width="1.30519" />
           <path id="c1-arrow-line" d="M443.672 310.717H455.043" stroke="white" stroke-width="1.79542" />
@@ -1211,24 +1189,37 @@
             stroke="#8EDFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
           <path id="c2-checkmark" d="M707 252L710 255L716 249" stroke="#8EDFFF" stroke-width="3" stroke-linecap="round"
             stroke-linejoin="round" />
-          <g id="c2-beam-g1" filter="url(#filter6_f_29_1960)">
-            <path
-              d="M607.877 245.946L534.5 243.5L534.5 240.5L608.392 238.858C618.615 238.631 628.228 233.944 634.703 226.03L651.5 205.5C651.5 205.5 642.225 232.153 642 245C641.773 257.928 651.5 282 651.5 282L634.569 259.739C628.198 251.362 618.395 246.297 607.877 245.946Z"
-              fill="#2080CB" />
-          </g>
-          <g id="c2-beam-g2" filter="url(#filter7_f_29_1960)">
-            <path
-              d="M624.961 245.5L534.5 245.5L534.5 239.5L632.5 239.501L632.5 245.498L624.962 245.499C624.962 245.5 624.961 245.5 624.961 245.5Z"
-              fill="url(#paint12_linear_29_1960)" />
-          </g>
-          <g id="c2-beam-g3" opacity="0.5" filter="url(#filter8_f_29_1960)">
-            <path
-              d="M634.422 247.5L597.5 247.5L597.5 241.5L637.5 241.501L637.5 247.498L634.423 247.499C634.423 247.5 634.423 247.5 634.422 247.5Z"
-              fill="url(#paint13_linear_29_1960)" />
-          </g>
-          <g id="c2-beam-g4" filter="url(#filter9_f_29_1960)">
-            <path d="M643.5 211.5C635.954 223.176 625.389 253.721 643.5 282.5" stroke="url(#paint14_radial_29_1960)"
-              stroke-width="2" />
+          <defs>
+            <mask id="c2-soft-mask" maskUnits="userSpaceOnUse">
+              <rect x="534.5" y="107.5" width="371" height="390" fill="black" />
+              <rect id="c2-soft-reveal" x="534.5" y="107.5" width="1" height="390" fill="url(#c2-soft-edge-grad)" />
+            </mask>
+            <linearGradient id="c2-soft-edge-grad" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="white" stop-opacity="1" />
+              <stop offset="72%" stop-color="white" stop-opacity="1" />
+              <stop offset="100%" stop-color="white" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <g id="c2-beam-wrapper" mask="url(#c2-soft-mask)">
+            <g id="c2-beam-g1" filter="url(#filter6_f_29_1960)">
+              <path
+                d="M607.877 245.946L534.5 243.5L534.5 240.5L608.392 238.858C618.615 238.631 628.228 233.944 634.703 226.03L651.5 205.5C651.5 205.5 642.225 232.153 642 245C641.773 257.928 651.5 282 651.5 282L634.569 259.739C628.198 251.362 618.395 246.297 607.877 245.946Z"
+                fill="#2080CB" />
+            </g>
+            <g id="c2-beam-g2" filter="url(#filter7_f_29_1960)">
+              <path
+                d="M624.961 245.5L534.5 245.5L534.5 239.5L632.5 239.501L632.5 245.498L624.962 245.499C624.962 245.5 624.961 245.5 624.961 245.5Z"
+                fill="url(#paint12_linear_29_1960)" />
+            </g>
+            <g id="c2-beam-g3" opacity="0.5" filter="url(#filter8_f_29_1960)">
+              <path
+                d="M634.422 247.5L597.5 247.5L597.5 241.5L637.5 241.501L637.5 247.498L634.423 247.499C634.423 247.5 634.423 247.5 634.422 247.5Z"
+                fill="url(#paint13_linear_29_1960)" />
+            </g>
+            <g id="c2-beam-g4" filter="url(#filter9_f_29_1960)">
+              <path d="M643.5 211.5C635.954 223.176 625.389 253.721 643.5 282.5" stroke="url(#paint14_radial_29_1960)"
+                stroke-width="2" />
+            </g>
           </g>
           <foreignObject id="c2-chip1-bg" x="677.912" y="117.912" width="199.177" height="129.177">
             <div xmlns="http://www.w3.org/1999/xhtml"
@@ -1262,7 +1253,7 @@
             <path
               d="M579.682 272.826H661.318C665.104 272.826 668.174 275.896 668.174 279.682V291.318C668.174 295.104 665.104 298.174 661.318 298.174H579.682C575.896 298.174 572.826 295.104 572.826 291.318V279.682C572.826 275.896 575.896 272.826 579.682 272.826Z"
               stroke="#4A4A4A" stroke-width="0.652597" />
-            <circle id="c2-dot-orange" cx="584.11" cy="285.5" r="2.61039" fill="#F19B31" />
+            <circle id="c2-dot-orange" cx="584.11" cy="285.5" r="2.61039" fill="#93E763" />
             <path
               d="M596.974 282.868C597.337 282.868 597.646 282.913 597.902 283.004C598.158 283.095 598.404 283.236 598.638 283.428L598.158 284.004C597.822 283.732 597.441 283.596 597.014 283.596C596.566 283.596 596.201 283.769 595.918 284.116C595.636 284.457 595.494 284.996 595.494 285.732C595.494 286.457 595.633 286.993 595.91 287.34C596.188 287.681 596.558 287.852 597.022 287.852C597.289 287.852 597.516 287.812 597.702 287.732C597.894 287.647 598.084 287.529 598.27 287.38L598.718 287.948C598.27 288.385 597.694 288.604 596.99 288.604C596.516 288.604 596.092 288.495 595.718 288.276C595.345 288.052 595.052 287.724 594.838 287.292C594.63 286.86 594.526 286.34 594.526 285.732C594.526 285.135 594.633 284.62 594.846 284.188C595.065 283.756 595.361 283.428 595.734 283.204C596.108 282.98 596.521 282.868 596.974 282.868ZM601.315 284.164C601.923 284.164 602.393 284.364 602.723 284.764C603.054 285.159 603.219 285.697 603.219 286.38C603.219 287.063 603.051 287.604 602.715 288.004C602.379 288.404 601.91 288.604 601.307 288.604C600.699 288.604 600.227 288.409 599.891 288.02C599.561 287.625 599.395 287.081 599.395 286.388C599.395 285.716 599.563 285.177 599.899 284.772C600.241 284.367 600.713 284.164 601.315 284.164ZM601.315 284.86C600.99 284.86 600.745 284.985 600.579 285.236C600.419 285.487 600.339 285.871 600.339 286.388C600.339 286.911 600.419 287.297 600.579 287.548C600.739 287.793 600.982 287.916 601.307 287.916C601.633 287.916 601.875 287.791 602.035 287.54C602.195 287.289 602.275 286.903 602.275 286.38C602.275 285.863 602.195 285.481 602.035 285.236C601.875 284.985 601.635 284.86 601.315 284.86ZM605.312 284.796C605.483 284.588 605.68 284.431 605.904 284.324C606.133 284.217 606.373 284.164 606.624 284.164C607.013 284.164 607.307 284.273 607.504 284.492C607.701 284.705 607.8 285.015 607.8 285.42V288.5H606.904V285.556C606.904 285.305 606.856 285.127 606.76 285.02C606.664 284.908 606.509 284.852 606.296 284.852C606.109 284.852 605.928 284.913 605.752 285.036C605.581 285.153 605.435 285.3 605.312 285.476V288.5H604.416V282.588L605.312 282.492V284.796ZM609.957 286.676C609.984 287.087 610.101 287.396 610.309 287.604C610.522 287.807 610.789 287.908 611.109 287.908C611.306 287.908 611.493 287.879 611.669 287.82C611.85 287.756 612.034 287.663 612.221 287.54L612.605 288.084C612.408 288.249 612.176 288.377 611.909 288.468C611.642 288.559 611.362 288.604 611.069 288.604C610.424 288.604 609.922 288.404 609.565 288.004C609.208 287.599 609.029 287.06 609.029 286.388C609.029 285.967 609.106 285.588 609.261 285.252C609.416 284.911 609.64 284.644 609.933 284.452C610.226 284.26 610.568 284.164 610.957 284.164C611.517 284.164 611.96 284.353 612.285 284.732C612.616 285.105 612.781 285.62 612.781 286.276C612.781 286.436 612.773 286.569 612.757 286.676H609.957ZM610.965 284.828C610.677 284.828 610.442 284.932 610.261 285.14C610.08 285.348 609.976 285.657 609.949 286.068H611.909C611.898 285.668 611.813 285.361 611.653 285.148C611.493 284.935 611.264 284.828 610.965 284.828ZM617.002 284.172C617.221 284.172 617.434 284.207 617.642 284.276L617.49 285.836H616.85V284.972C616.557 284.977 616.301 285.095 616.082 285.324C615.869 285.553 615.698 285.876 615.57 286.292V287.86H616.418V288.5H614.05V287.86H614.674V284.916H614.05V284.276H615.354L615.514 285.252C615.679 284.889 615.879 284.62 616.114 284.444C616.354 284.263 616.65 284.172 617.002 284.172ZM619.551 286.676C619.577 287.087 619.695 287.396 619.903 287.604C620.116 287.807 620.383 287.908 620.703 287.908C620.9 287.908 621.087 287.879 621.263 287.82C621.444 287.756 621.628 287.663 621.815 287.54L622.199 288.084C622.001 288.249 621.769 288.377 621.503 288.468C621.236 288.559 620.956 288.604 620.663 288.604C620.017 288.604 619.516 288.404 619.159 288.004C618.801 287.599 618.623 287.06 618.623 286.388C618.623 285.967 618.7 285.588 618.855 285.252C619.009 284.911 619.233 284.644 619.527 284.452C619.82 284.26 620.161 284.164 620.551 284.164C621.111 284.164 621.553 284.353 621.879 284.732C622.209 285.105 622.375 285.62 622.375 286.276C622.375 286.436 622.367 286.569 622.351 286.676H619.551ZM620.559 284.828C620.271 284.828 620.036 284.932 619.855 285.14C619.673 285.348 619.569 285.657 619.543 286.068H621.503C621.492 285.668 621.407 285.361 621.247 285.148C621.087 284.935 620.857 284.828 620.559 284.828ZM623.604 284.276H624.38L624.444 284.828C624.62 284.615 624.825 284.452 625.06 284.34C625.3 284.223 625.55 284.164 625.812 284.164C626.201 284.164 626.494 284.273 626.692 284.492C626.889 284.711 626.988 285.02 626.988 285.42V288.5H626.092V285.868C626.092 285.607 626.076 285.407 626.044 285.268C626.017 285.124 625.961 285.02 625.876 284.956C625.79 284.887 625.662 284.852 625.492 284.852C625.3 284.852 625.116 284.911 624.94 285.028C624.769 285.145 624.622 285.292 624.5 285.468V288.5H623.604V284.276ZM630.44 287.868C630.776 287.868 631.123 287.748 631.48 287.508L631.888 288.084C631.702 288.244 631.478 288.372 631.216 288.468C630.955 288.559 630.686 288.604 630.408 288.604C629.763 288.604 629.259 288.407 628.896 288.012C628.534 287.612 628.352 287.079 628.352 286.412C628.352 285.98 628.435 285.596 628.6 285.26C628.766 284.919 629.003 284.652 629.312 284.46C629.627 284.263 629.998 284.164 630.424 284.164C630.984 284.164 631.472 284.335 631.888 284.676L631.472 285.236C631.131 285.001 630.787 284.884 630.44 284.884C630.088 284.884 629.811 285.012 629.608 285.268C629.406 285.519 629.304 285.9 629.304 286.412C629.304 286.913 629.406 287.281 629.608 287.516C629.811 287.751 630.088 287.868 630.44 287.868ZM633.941 286.676C633.968 287.087 634.085 287.396 634.293 287.604C634.507 287.807 634.773 287.908 635.093 287.908C635.291 287.908 635.477 287.879 635.653 287.82C635.835 287.756 636.019 287.663 636.205 287.54L636.589 288.084C636.392 288.249 636.16 288.377 635.893 288.468C635.627 288.559 635.347 288.604 635.053 288.604C634.408 288.604 633.907 288.404 633.549 288.004C633.192 287.599 633.013 287.06 633.013 286.388C633.013 285.967 633.091 285.588 633.245 285.252C633.4 284.911 633.624 284.644 633.917 284.452C634.211 284.26 634.552 284.164 634.941 284.164C635.501 284.164 635.944 284.353 636.269 284.732C636.6 285.105 636.765 285.62 636.765 286.276C636.765 286.436 636.757 286.569 636.741 286.676H633.941ZM634.949 284.828C634.661 284.828 634.427 284.932 634.245 285.14C634.064 285.348 633.96 285.657 633.933 286.068H635.893C635.883 285.668 635.797 285.361 635.637 285.148C635.477 284.935 635.248 284.828 634.949 284.828Z"
               fill="white" />
@@ -1282,7 +1273,7 @@
             <path
               d="M757.682 282.826H849.539C853.325 282.826 856.395 285.896 856.395 289.682V301.318C856.395 305.104 853.325 308.174 849.539 308.174H757.682C753.896 308.174 750.826 305.104 750.826 301.318V289.682C750.826 285.896 753.896 282.826 757.682 282.826Z"
               stroke="#4A4A4A" stroke-width="0.652597" />
-            <circle id="c2-dot-green" cx="762.11" cy="295.5" r="2.61039" fill="#93E763" />
+            <circle id="c2-dot-green" cx="762.11" cy="295.5" r="2.61039" fill="#FB4C4E" />
             <path
               d="M775.585 292.9C775.926 292.9 776.219 292.945 776.465 293.036C776.71 293.121 776.95 293.255 777.185 293.436L776.793 293.892C776.467 293.62 776.081 293.484 775.633 293.484C775.137 293.484 774.731 293.665 774.417 294.028C774.107 294.385 773.953 294.956 773.953 295.74C773.953 296.519 774.105 297.089 774.409 297.452C774.713 297.815 775.118 297.996 775.625 297.996C775.902 297.996 776.139 297.956 776.337 297.876C776.534 297.796 776.723 297.684 776.905 297.54L777.265 297.988C776.854 298.388 776.305 298.588 775.617 298.588C775.163 298.588 774.755 298.479 774.393 298.26C774.03 298.036 773.745 297.711 773.537 297.284C773.329 296.857 773.225 296.343 773.225 295.74C773.225 295.143 773.329 294.631 773.537 294.204C773.75 293.772 774.035 293.447 774.393 293.228C774.755 293.009 775.153 292.9 775.585 292.9ZM779.926 294.196C780.507 294.196 780.952 294.393 781.262 294.788C781.576 295.177 781.734 295.711 781.734 296.388C781.734 297.049 781.574 297.583 781.254 297.988C780.939 298.388 780.494 298.588 779.918 298.588C779.336 298.588 778.888 298.393 778.574 298.004C778.259 297.609 778.102 297.073 778.102 296.396C778.102 295.729 778.259 295.196 778.574 294.796C778.894 294.396 779.344 294.196 779.926 294.196ZM779.926 294.748C779.558 294.748 779.283 294.884 779.102 295.156C778.92 295.428 778.83 295.841 778.83 296.396C778.83 296.951 778.918 297.364 779.094 297.636C779.275 297.903 779.55 298.036 779.918 298.036C780.286 298.036 780.558 297.903 780.734 297.636C780.915 297.364 781.006 296.948 781.006 296.388C781.006 295.833 780.915 295.423 780.734 295.156C780.558 294.884 780.288 294.748 779.926 294.748ZM785.963 294.196C786.133 294.196 786.331 294.225 786.555 294.284L786.459 295.716H785.915V294.812H785.875C785.224 294.812 784.763 295.276 784.491 296.204V297.98H785.347V298.5H783.155V297.98H783.819V294.804H783.155V294.284H784.323L784.451 295.284C784.621 294.921 784.824 294.649 785.059 294.468C785.299 294.287 785.6 294.196 785.963 294.196ZM790.759 294.196C790.93 294.196 791.127 294.225 791.351 294.284L791.255 295.716H790.711V294.812H790.671C790.021 294.812 789.559 295.276 789.287 296.204V297.98H790.143V298.5H787.951V297.98H788.615V294.804H787.951V294.284H789.119L789.247 295.284C789.418 294.921 789.621 294.649 789.855 294.468C790.095 294.287 790.397 294.196 790.759 294.196ZM793.244 296.628C793.26 297.092 793.38 297.441 793.604 297.676C793.834 297.911 794.122 298.028 794.468 298.028C794.676 298.028 794.866 297.999 795.036 297.94C795.212 297.876 795.399 297.78 795.596 297.652L795.908 298.1C795.711 298.255 795.484 298.375 795.228 298.46C794.978 298.545 794.724 298.588 794.468 298.588C793.86 298.588 793.386 298.391 793.044 297.996C792.708 297.596 792.54 297.063 792.54 296.396C792.54 295.975 792.615 295.599 792.764 295.268C792.914 294.932 793.127 294.671 793.404 294.484C793.682 294.292 794.004 294.196 794.372 294.196C794.906 294.196 795.324 294.383 795.628 294.756C795.938 295.124 796.092 295.628 796.092 296.268C796.092 296.391 796.087 296.511 796.076 296.628H793.244ZM794.38 294.748C794.055 294.748 793.791 294.865 793.588 295.1C793.386 295.329 793.271 295.668 793.244 296.116H795.436C795.431 295.673 795.335 295.335 795.148 295.1C794.962 294.865 794.706 294.748 794.38 294.748ZM799.417 298.012C799.785 298.012 800.151 297.889 800.513 297.644L800.833 298.084C800.657 298.239 800.439 298.361 800.177 298.452C799.916 298.543 799.663 298.588 799.417 298.588C798.793 298.588 798.305 298.393 797.953 298.004C797.607 297.609 797.433 297.079 797.433 296.412C797.433 295.991 797.511 295.612 797.665 295.276C797.825 294.94 798.055 294.676 798.353 294.484C798.652 294.292 799.007 294.196 799.417 294.196C799.961 294.196 800.431 294.361 800.825 294.692L800.497 295.132C800.129 294.887 799.767 294.764 799.409 294.764C799.031 294.764 798.727 294.905 798.497 295.188C798.273 295.465 798.161 295.873 798.161 296.412C798.161 296.951 798.273 297.353 798.497 297.62C798.727 297.881 799.033 298.012 799.417 298.012ZM805.654 298.284C805.51 298.38 805.334 298.455 805.126 298.508C804.923 298.561 804.721 298.588 804.518 298.588C804.075 298.588 803.729 298.473 803.478 298.244C803.227 298.009 803.102 297.703 803.102 297.324V294.812H802.134V294.284H803.102V293.332L803.774 293.252V294.284H805.238L805.15 294.812H803.774V297.316C803.774 297.556 803.838 297.735 803.966 297.852C804.094 297.969 804.299 298.028 804.582 298.028C804.87 298.028 805.139 297.961 805.39 297.828L805.654 298.284ZM807.099 294.284H807.675L807.731 294.876C807.896 294.663 808.104 294.497 808.355 294.38C808.611 294.257 808.867 294.196 809.123 294.196C809.912 294.196 810.307 294.612 810.307 295.444V298.5H809.635V295.94C809.635 295.625 809.616 295.385 809.579 295.22C809.547 295.055 809.48 294.932 809.379 294.852C809.278 294.772 809.123 294.732 808.915 294.732C808.686 294.732 808.47 294.801 808.267 294.94C808.064 295.079 807.899 295.244 807.771 295.436V298.5H807.099V294.284ZM812.432 296.628C812.448 297.092 812.568 297.441 812.792 297.676C813.021 297.911 813.309 298.028 813.656 298.028C813.864 298.028 814.053 297.999 814.224 297.94C814.4 297.876 814.586 297.78 814.784 297.652L815.096 298.1C814.898 298.255 814.672 298.375 814.416 298.46C814.165 298.545 813.912 298.588 813.656 298.588C813.048 298.588 812.573 298.391 812.232 297.996C811.896 297.596 811.728 297.063 811.728 296.396C811.728 295.975 811.802 295.599 811.952 295.268C812.101 294.932 812.314 294.671 812.592 294.484C812.869 294.292 813.192 294.196 813.56 294.196C814.093 294.196 814.512 294.383 814.816 294.756C815.125 295.124 815.28 295.628 815.28 296.268C815.28 296.391 815.274 296.511 815.264 296.628H812.432ZM813.568 294.748C813.242 294.748 812.978 294.865 812.776 295.1C812.573 295.329 812.458 295.668 812.432 296.116H814.624C814.618 295.673 814.522 295.335 814.336 295.1C814.149 294.865 813.893 294.748 813.568 294.748ZM818.133 298.036C818.453 298.036 818.706 297.975 818.893 297.852C819.079 297.729 819.173 297.567 819.173 297.364C819.173 297.225 819.149 297.113 819.101 297.028C819.053 296.937 818.957 296.857 818.813 296.788C818.669 296.713 818.45 296.639 818.157 296.564C817.666 296.441 817.303 296.295 817.069 296.124C816.834 295.948 816.717 295.689 816.717 295.348C816.717 294.996 816.863 294.716 817.157 294.508C817.45 294.3 817.837 294.196 818.317 294.196C818.903 294.196 819.415 294.351 819.853 294.66L819.549 295.124C819.373 295.001 819.189 294.908 818.997 294.844C818.805 294.775 818.583 294.74 818.333 294.74C817.725 294.74 817.421 294.924 817.421 295.292C817.421 295.42 817.453 295.524 817.517 295.604C817.586 295.684 817.695 295.756 817.845 295.82C817.999 295.879 818.229 295.951 818.533 296.036C818.991 296.159 819.333 296.316 819.557 296.508C819.786 296.695 819.901 296.969 819.901 297.332C819.901 297.753 819.73 298.068 819.389 298.276C819.047 298.484 818.629 298.588 818.133 298.588C817.471 298.588 816.922 298.399 816.485 298.02L816.861 297.58C817.031 297.719 817.226 297.831 817.445 297.916C817.663 297.996 817.893 298.036 818.133 298.036ZM822.93 298.036C823.25 298.036 823.503 297.975 823.69 297.852C823.876 297.729 823.97 297.567 823.97 297.364C823.97 297.225 823.946 297.113 823.898 297.028C823.85 296.937 823.754 296.857 823.61 296.788C823.466 296.713 823.247 296.639 822.954 296.564C822.463 296.441 822.1 296.295 821.866 296.124C821.631 295.948 821.514 295.689 821.514 295.348C821.514 294.996 821.66 294.716 821.954 294.508C822.247 294.3 822.634 294.196 823.114 294.196C823.7 294.196 824.212 294.351 824.65 294.66L824.346 295.124C824.17 295.001 823.986 294.908 823.794 294.844C823.602 294.775 823.38 294.74 823.13 294.74C822.522 294.74 822.218 294.924 822.218 295.292C822.218 295.42 822.25 295.524 822.314 295.604C822.383 295.684 822.492 295.756 822.642 295.82C822.796 295.879 823.026 295.951 823.33 296.036C823.788 296.159 824.13 296.316 824.354 296.508C824.583 296.695 824.698 296.969 824.698 297.332C824.698 297.753 824.527 298.068 824.186 298.276C823.844 298.484 823.426 298.588 822.93 298.588C822.268 298.588 821.719 298.399 821.282 298.02L821.658 297.58C821.828 297.719 822.023 297.831 822.242 297.916C822.46 297.996 822.69 298.036 822.93 298.036Z"
               fill="white" />
@@ -1473,15 +1464,15 @@
           <rect id="c3-mid-l1" x="1025.42" y="249.279" width="0" height="2.5" rx="1.25" fill="#ADADAD" />
           <rect id="c3-mid-l2" x="1025.42" y="255.779" width="0" height="2.5" rx="1.25" fill="#ADADAD" />
           <path id="c3-conn-mid-c" d="M1134.11 253.778L1104.11 253.778" stroke="url(#paint38_linear_29_1960)"
-            stroke-width="1.09926" stroke-linecap="round" />
+            stroke-width="1.09926" stroke-linecap="round" display="none" />
           <path id="c3-conn-bot-c" d="M1184.25 302.169V313.575C1184.25 317.993 1180.67 321.575 1176.25 321.575H1160.14"
-            stroke="url(#paint39_linear_29_1960)" stroke-width="1.09926" stroke-linecap="round" />
+            stroke="url(#paint39_linear_29_1960)" stroke-width="1.09926" stroke-linecap="round" display="none" />
           <path id="c3-conn-top-c" d="M1184.25 205.951V194.546C1184.25 190.127 1180.67 186.546 1176.25 186.546H1160.14"
-            stroke="url(#paint40_linear_29_1960)" stroke-width="1.09926" stroke-linecap="round" />
+            stroke="url(#paint40_linear_29_1960)" stroke-width="1.09926" stroke-linecap="round" display="none" />
         </g>
         <rect x="922" y="108" width="370" height="389" rx="14" stroke="#3A3A3A" />
-        <!-- Card 3: "30 test cases ✓" tag -->
-        <g clip-path="url(#c3-card-clip)">
+        <!-- Card 3: "30 test cases ✓" tag — hidden until ripple completes -->
+        <g id="c3-result-tag" clip-path="url(#c3-card-clip)" opacity="0">
           <text x="1164.66" y="140.8" font-family="'Fira Mono', 'Courier New', monospace" font-size="10"
             font-weight="400" fill="white" letter-spacing="0">30 test cases</text>
           <path d="M1249,137 L1253,142 L1261,133" stroke="#93E763" stroke-width="1.4" stroke-linecap="round"
@@ -1781,7 +1772,7 @@
           <path id="c5-rline-bot"
             d="M909.58 672.104H926.507L958.552 672.063C962.744 672.058 966.861 670.952 970.491 668.856L981.962 662.233"
             stroke="url(#paint60_linear_29_1960)" stroke-width="1.30519" stroke-dasharray="2.61 2.61" />
-          <text x="1011" y="562" font-family="'Fira Mono', 'Courier New', monospace" font-size="9" font-weight="500"
+          <text x="1011" y="562" font-family="'Fira Mono', 'Courier New', monospace" font-size="11" font-weight="500"
             fill="#8EDFFF" text-anchor="middle" letter-spacing="0.4">Red Teaming</text>
         </g>
         <rect x="729" y="514" width="564" height="330" rx="14" stroke="#3A3A3A" />
@@ -2702,7 +2693,8 @@
         // Reset to initial state (clean slate for hover replay)
         ['c1-bar1-fill', 'c1-bar3-fill', 'c1-bar4-fill', 'c1-bar2-fill'].forEach(function (id) { var el = document.getElementById(id); if (el) el.setAttribute('width', '0'); });
         ['c1-duration-pill1'].forEach(function (id) { var el = document.getElementById(id); if (el) { el.style.transition = 'none'; el.style.opacity = '0'; } });
-        (function () { var s = document.getElementById('c1-scanline'); if (s) { s.style.animation = 'none'; void s.getBoundingClientRect(); s.style.animation = 'c1-scanline-sweep 1.4s cubic-bezier(0.4,0,0.6,1) 0.2s both'; } })();
+        // Hide stale traveling-line elements from old runs
+        ['c1-branch-a-tl', 'c1-branch-c-tl', 'c1-trace-main-tl', 'c1-trace-tail', 'c1-trace-core', 'c1-trace-g1', 'c1-trace-g2', 'c1-trace-g3', 'c1-trace-g4', 'c1-trace-g5'].forEach(function (id) { var el = document.getElementById(id); if (el) el.setAttribute('opacity', '0'); });
         var svg = document.querySelector('svg');
         if (!svg) return;
 
@@ -2795,40 +2787,67 @@
           }, l.delay);
         });
 
-        // ── 4. DATA FLOW DOTS ────────────────────────────────────────
-        function animateDotAlongPath(dotId, pathId, startDelay, dotDur, repeatDelay) {
-          var dot = document.getElementById(dotId);
-          var path = document.getElementById(pathId);
-          if (!dot || !path) return;
+        // ── 4. TRAVELING GRADIENT LINE ───────────────────────────────
+        // 5 graduated layers: longest/faintest tail → shortest/brightest core.
+        // All share the same leading edge — creates smooth transparent-to-solid gradient.
+        (function () {
+          var path = document.getElementById('c1-trace-main');
+          if (!path) return;
           var len = path.getTotalLength ? path.getTotalLength() : 400;
+          var ns = 'http://www.w3.org/2000/svg';
+          var layers = [
+            { id: 'c1-trace-g5', seg: 120, op: 0.06 },
+            { id: 'c1-trace-g4', seg: 80, op: 0.16 },
+            { id: 'c1-trace-g3', seg: 52, op: 0.32 },
+            { id: 'c1-trace-g2', seg: 26, op: 0.60 },
+            { id: 'c1-trace-g1', seg: 10, op: 1.00 }
+          ];
+          var sweep = len + 120;
+
+          var els = layers.map(function (l) {
+            var stale = document.getElementById(l.id);
+            if (stale && stale.parentNode) stale.parentNode.removeChild(stale);
+            var el = document.createElementNS(ns, 'path');
+            el.id = l.id;
+            el.setAttribute('d', path.getAttribute('d'));
+            el.setAttribute('stroke', '#3385FA');
+            el.setAttribute('stroke-width', '1.4');
+            el.setAttribute('stroke-linecap', 'round');
+            el.setAttribute('fill', 'none');
+            el.setAttribute('stroke-dasharray', l.seg + ' ' + (len + l.seg));
+            el.setAttribute('stroke-dashoffset', String(l.seg));
+            el.setAttribute('opacity', '0');
+            path.parentNode.appendChild(el);
+            return el;
+          });
 
           function runOnce() {
-            if (gens.c1 !== myGen) { dot.style.opacity = '0'; return; }
-            dot.style.opacity = '1';
+            if (gens.c1 !== myGen) return;
+            els.forEach(function (el, i) {
+              el.setAttribute('stroke-dashoffset', String(layers[i].seg));
+              el.setAttribute('opacity', '0');
+            });
             var start = null;
-            var anim = function (ts) {
-              if (gens.c1 !== myGen) { dot.style.opacity = '0'; return; }
+            (function anim(ts) {
+              if (gens.c1 !== myGen) return;
               if (!start) start = ts;
-              var p = Math.min((ts - start) / dotDur, 1);
-              var pt = path.getPointAtLength(p * len);
-              dot.setAttribute('cx', pt.x);
-              dot.setAttribute('cy', pt.y);
+              var p = Math.min((ts - start) / 1400, 1);
+              var op = p < 0.08 ? p / 0.08 : p > 0.92 ? (1 - p) / 0.08 : 1;
+              els.forEach(function (el, i) {
+                el.setAttribute('stroke-dashoffset', (layers[i].seg - p * sweep).toFixed(2));
+                el.setAttribute('opacity', (op * layers[i].op).toFixed(3));
+              });
               if (p < 1) {
                 requestAnimationFrame(anim);
               } else {
-                dot.style.opacity = '0';
-                setTimeout(runOnce, repeatDelay);
+                els.forEach(function (el) { el.setAttribute('opacity', '0'); });
+                setTimeout(function () { if (gens.c1 !== myGen) return; setTimeout(runOnce, 100); }, 2500);
               }
-            };
-            requestAnimationFrame(anim);
+            })(performance.now());
           }
 
-          setTimeout(runOnce, startDelay);
-        }
-
-        animateDotAlongPath('c1-dot-main', 'c1-trace-main', 2000, 1200, 3000);
-        animateDotAlongPath('c1-dot-brancha', 'c1-branch-a', 2600, 600, 4000);
-        animateDotAlongPath('c1-dot-branchc', 'c1-branch-c', 3400, 500, 4500);
+          setTimeout(runOnce, 2800);
+        })();
 
         // ── 5. GREEN DOT PULSE RING ───────────────────────────────────
         var ring = document.getElementById('c1-green-pulse');
@@ -2863,7 +2882,23 @@
       function initCard2Animations() {
         var myGen = ++gens.c2;
         // Reset to initial state
-        ['c2-beam-g1', 'c2-beam-g2', 'c2-beam-g3', 'c2-beam-g4'].forEach(function (id, i) { var el = document.getElementById(id); if (!el) return; el.style.animation = 'none'; void el.getBoundingClientRect(); el.style.animation = 'c2-beam-sweep 1.6s cubic-bezier(0.25,0.46,0.45,0.94) ' + (1.0 + [0, 0.1, 0.15, 0.05][i]) + 's both'; });
+        (function () { var sr = document.getElementById('c2-soft-reveal'); if (sr) sr.setAttribute('width', '1'); })();
+        (function runBeamGlowSweep(gen) {
+          var sr = document.getElementById('c2-soft-reveal'); if (!sr) return;
+          var beamW = 371, dur = 4500, delay = 1000, startTs = null;
+          function frame(ts) {
+            if (gens.c2 !== gen) return;
+            if (!startTs) startTs = ts;
+            var elapsed = ts - startTs - delay;
+            if (elapsed < 0) { requestAnimationFrame(frame); return; }
+            var t = Math.min(elapsed / dur, 1);
+            var p = 1 - Math.pow(1 - t, 3);
+            sr.setAttribute('width', Math.max(1, p * beamW).toFixed(1));
+            if (t < 1) requestAnimationFrame(frame);
+            else sr.setAttribute('width', '371');
+          }
+          requestAnimationFrame(frame);
+        })(myGen);
         (function () { var d = document.getElementById('c2-doc-body'); if (d) { d.style.animation = 'none'; void d.getBoundingClientRect(); d.style.animation = 'c2-icon-in 0.5s ease-out 2.8s both'; } })();
         ['c2-chip1', 'c2-chip2', 'c2-chip3'].forEach(function (id, i) { var el = document.getElementById(id); if (!el) return; el.style.animation = 'none'; void el.getBoundingClientRect(); el.style.animation = 'c2-chip-in 0.6s cubic-bezier(0.22,1,0.36,1) ' + (3.6 + i * 0.4) + 's both'; var bg = document.getElementById(id + '-bg'); if (!bg) return; bg.style.animation = 'none'; void bg.getBoundingClientRect(); bg.style.animation = 'c2-chip-in 0.6s cubic-bezier(0.22,1,0.36,1) ' + (3.6 + i * 0.4) + 's both'; });
         ['c2-doc-fold', 'c2-checkmark'].forEach(function (id) { var el = document.getElementById(id); if (!el) return; var len = el.getTotalLength ? el.getTotalLength() : 60; el.style.transition = 'none'; el.style.strokeDasharray = len + ' ' + len; el.style.strokeDashoffset = String(len); });
@@ -2912,6 +2947,35 @@
 
         // dust particles removed
 
+        // ── 3. FIX CHIP NUMBER VALUES (chip1: 0.2→0.1, chip2: 0.1→0.9) ─
+        var chipNumFixes = [
+          { chipId: 'c2-chip1', text: '0.1', color: '#FB4C4E', flickerDelay: 4.4 },
+          { chipId: 'c2-chip2', text: '0.9', color: '#93E763', flickerDelay: 4.8 },
+        ];
+        chipNumFixes.forEach(function (cfg) {
+          var chip = document.getElementById(cfg.chipId);
+          if (!chip) return;
+          var paths = chip.querySelectorAll('path');
+          var numPath = paths[paths.length - 1];
+          if (!numPath) return;
+          var bb = numPath.getBBox();
+          numPath.style.display = 'none';
+          var oldTxt = document.getElementById(cfg.chipId + '-num');
+          if (oldTxt && oldTxt.parentNode) oldTxt.parentNode.removeChild(oldTxt);
+          var txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          txt.id = cfg.chipId + '-num';
+          txt.setAttribute('x', bb.x.toFixed(2));
+          txt.setAttribute('y', (bb.y + bb.height).toFixed(2));
+          txt.setAttribute('font-family', "'Fira Mono', 'Courier New', monospace");
+          txt.setAttribute('font-size', (bb.height * 1.35).toFixed(2));
+          txt.setAttribute('fill', cfg.color);
+          txt.setAttribute('opacity', '0');
+          txt.textContent = cfg.text;
+          chip.appendChild(txt);
+          void txt.getBoundingClientRect();
+          txt.style.animation = 'c2-flicker 0.7s ease-in-out ' + cfg.flickerDelay + 's both';
+        });
+
       }
 
       setTimeout(initCard2Animations, 100);
@@ -2921,254 +2985,191 @@
       // ═══════════════════════════════════════════════════════════
       function initCard3Animations() {
         var myGen = ++gens.c3;
-        // Reset to initial state
+        var ns = 'http://www.w3.org/2000/svg';
+
+        // ── RESET ─────────────────────────────────────────────────
         ['c3-conn-top', 'c3-conn-mid', 'c3-conn-bot'].forEach(function (id) { var el = document.getElementById(id); if (!el) return; var len = el.getTotalLength ? el.getTotalLength() : 300; el.style.transition = 'none'; el.style.strokeDasharray = len + ' ' + len; el.style.strokeDashoffset = String(len); });
-        ['c3-conn-top-c', 'c3-conn-mid-c', 'c3-conn-bot-c'].forEach(function (id) { var el = document.getElementById(id); if (!el) return; var len = el.getTotalLength ? el.getTotalLength() : 80; el.style.transition = 'none'; el.style.strokeDasharray = len + ' ' + len; el.style.strokeDashoffset = String(len); });
         ['c3-node-top', 'c3-node-mid', 'c3-node-bot'].forEach(function (id) { var el = document.getElementById(id); if (el) { el.style.animation = ''; el.style.opacity = '0'; } var bg = document.getElementById(id + '-bg'); if (bg) { bg.style.transition = 'none'; bg.style.opacity = '0'; } });
         ['c3-robot-antenna', 'c3-robot-body', 'c3-robot-arm-l', 'c3-robot-arm-r'].forEach(function (id) { var el = document.getElementById(id); if (!el) return; el.style.animation = 'none'; void el.getBoundingClientRect(); el.style.animation = ''; el.style.filter = ''; });
         ['c3-top-l1', 'c3-top-l2', 'c3-mid-l1', 'c3-mid-l2', 'c3-bot-l1', 'c3-bot-l2'].forEach(function (id) { var el = document.getElementById(id); if (el) el.setAttribute('width', '0'); });
         (function () { var pc = document.getElementById('c3-particles'); if (pc) { while (pc.firstChild) pc.removeChild(pc.firstChild); } })();
-        var CX = 1184.48, CY = 253.779;
+        ['c3-conn-top', 'c3-conn-mid', 'c3-conn-bot'].forEach(function (base) { ['-g1', '-g2', '-g3', '-g4', '-g5', '-tail', '-core'].forEach(function (sfx) { var el = document.getElementById(base + sfx); if (el) el.setAttribute('opacity', '0'); }); });
+        (function () { var tag = document.getElementById('c3-result-tag'); if (tag) tag.setAttribute('opacity', '0'); })();
 
-        // ── 1. CONNECTOR IDs (for loop + reset) ──────────────────
-        var connIds = ['c3-conn-top', 'c3-conn-mid', 'c3-conn-bot'];
-
-        // ── 1b. LOOP connector redraw every 6s (after narrative) ─
-        (function connLoop(wait) {
+        // ── HELPERS ───────────────────────────────────────────────
+        function spawnGradientLine(connId, color, travelDur, startDelay) {
+          var path = document.getElementById(connId); if (!path) return;
+          var len = path.getTotalLength ? path.getTotalLength() : 300;
+          var layers = [
+            { sfx: '-g5', seg: 45, op: 0.07 },
+            { sfx: '-g4', seg: 30, op: 0.18 },
+            { sfx: '-g3', seg: 19, op: 0.36 },
+            { sfx: '-g2', seg: 11, op: 0.65 },
+            { sfx: '-g1', seg: 7, op: 1.00 }
+          ];
+          var sweep = len + 45;
+          var els = layers.map(function (l) {
+            var old = document.getElementById(connId + l.sfx); if (old && old.parentNode) old.parentNode.removeChild(old);
+            var el = document.createElementNS(ns, 'path'); el.id = connId + l.sfx;
+            el.setAttribute('d', path.getAttribute('d')); el.setAttribute('stroke', color);
+            el.setAttribute('stroke-width', ''); el.setAttribute('stroke-linecap', 'round');
+            el.setAttribute('fill', 'none');
+            el.setAttribute('stroke-dasharray', l.seg + ' ' + (len + l.seg));
+            el.setAttribute('stroke-dashoffset', String(-len)); el.setAttribute('opacity', '0');
+            path.parentNode.appendChild(el); return el;
+          });
           setTimeout(function () {
             if (gens.c3 !== myGen) return;
-            connIds.forEach(function (id) {
-              var el = document.getElementById(id);
-              if (!el) return;
-              var len = el.getTotalLength ? el.getTotalLength() : 300;
-              el.style.transition = 'none';
-              el.style.strokeDashoffset = String(len);
-              void el.getBoundingClientRect();
-              requestAnimationFrame(function () {
-                if (gens.c3 !== myGen) return;
-                el.style.transition = 'stroke-dashoffset 0.9s cubic-bezier(0.4,0,0.2,1)';
-                el.style.strokeDashoffset = '0';
+            var start = null;
+            (function anim(ts) {
+              if (gens.c3 !== myGen) return; if (!start) start = ts;
+              var p = Math.min((ts - start) / travelDur, 1);
+              var off = (-len + p * sweep).toFixed(2);
+              var fade = p < 0.07 ? p / 0.07 : p > 0.93 ? (1 - p) / 0.07 : 1;
+              els.forEach(function (el, i) {
+                el.setAttribute('stroke-dashoffset', off);
+                el.setAttribute('opacity', (fade * layers[i].op).toFixed(3));
               });
-            });
-            connLoop(6000);
-          }, wait);
-        })(9500);
+              if (p < 1) requestAnimationFrame(anim);
+              else { els.forEach(function (el) { el.setAttribute('opacity', '0'); }); }
+            })(performance.now());
+          }, startDelay);
+        }
 
-        // ── 2. PHASE 1: USER → BOT (left to right) ───────────────
-        //  Order per user: icon glow → chat bubble → dark wire → colored line → particle
-        var userToBot = [
+        // Expanding ripple ring at robot center — subtle, card-5 style
+        function spawnRipple(delayMs) {
+          var pc = document.getElementById('c3-particles'); if (!pc) return;
+          var CX = 1184.48, CY = 253.779;
+          // Two rings: first slightly stronger, second faint — matches card 5 wave style
+          var rings = [{ offset: 0, r0: 30, r1: 72, dur: 1000, maxOp: 0.45 }, { offset: 300, r0: 30, r1: 58, dur: 850, maxOp: 0.25 }];
+          rings.forEach(function (ring) {
+            setTimeout(function () {
+              if (gens.c3 !== myGen) return;
+              var circ = document.createElementNS(ns, 'circle');
+              circ.setAttribute('cx', CX); circ.setAttribute('cy', CY);
+              circ.setAttribute('r', ring.r0); circ.setAttribute('fill', 'none');
+              circ.setAttribute('stroke', '#8EDFFF'); circ.setAttribute('stroke-width', '1.5');
+              circ.setAttribute('opacity', '0'); pc.appendChild(circ);
+              var start = null;
+              (function step(ts) {
+                if (!start) start = ts;
+                var p = Math.min((ts - start) / ring.dur, 1);
+                circ.setAttribute('r', (ring.r0 + (ring.r1 - ring.r0) * p).toFixed(2));
+                circ.setAttribute('opacity', ((1 - p) * ring.maxOp).toFixed(3));
+                if (p < 1) requestAnimationFrame(step);
+                else if (pc.contains(circ)) pc.removeChild(circ);
+              })(performance.now());
+            }, delayMs + ring.offset);
+          });
+        }
+
+        // ── SEQUENCE (all three lines simultaneous) ────────────────
+        // Phase 1 (400–1800ms): users appear + gray wires draw together
+        // Phase 2 (1900ms): all gradient lines travel in parallel
+        // Phase 3 (3100ms): ripple + robot glow
+        // Phase 4 (4300ms): result tag fades in
+        var lines = [
           {
-            userId: 'c3-user-top', connId: 'c3-conn-top-c', nodeId: 'c3-node-top',
-            darkId: 'c3-conn-top', lines: ['c3-top-l1', 'c3-top-l2'], lineWidths: [40.6963, 19.4756],
-            particlePath: 'c3-conn-top', color: '#F19B31',
-            pulseAt: 400, nodeAt: 700, darkAt: 900, colorAt: 1350, particleAt: 1450
+            connId: 'c3-conn-top', color: '#F19B31', userId: 'c3-user-top', nodeId: 'c3-node-top',
+            lines: ['c3-top-l1', 'c3-top-l2'], lineWidths: [40.6963, 19.4756]
           },
           {
-            userId: 'c3-user-mid', connId: 'c3-conn-mid-c', nodeId: 'c3-node-mid',
-            darkId: 'c3-conn-mid', lines: ['c3-mid-l1', 'c3-mid-l2'], lineWidths: [40.6963, 19.4756],
-            particlePath: 'c3-conn-mid', color: '#D0595A',
-            pulseAt: 1700, nodeAt: 2000, darkAt: 2200, colorAt: 2650, particleAt: 2750
+            connId: 'c3-conn-mid', color: '#D0595A', userId: 'c3-user-mid', nodeId: 'c3-node-mid',
+            lines: ['c3-mid-l1', 'c3-mid-l2'], lineWidths: [40.6963, 19.4756]
           },
           {
-            userId: 'c3-user-bot', connId: 'c3-conn-bot-c', nodeId: 'c3-node-bot',
-            darkId: 'c3-conn-bot', lines: ['c3-bot-l1', 'c3-bot-l2'], lineWidths: [40.6963, 19.4756],
-            particlePath: 'c3-conn-bot', color: '#FFD23F',
-            pulseAt: 3000, nodeAt: 3300, darkAt: 3500, colorAt: 3950, particleAt: 4050
+            connId: 'c3-conn-bot', color: '#FFD23F', userId: 'c3-user-bot', nodeId: 'c3-node-bot',
+            lines: ['c3-bot-l1', 'c3-bot-l2'], lineWidths: [40.6963, 19.4756]
           }
         ];
 
-        userToBot.forEach(function (s) {
-          // 2a. User icon glows (activation signal)
+        lines.forEach(function (s, idx) {
+          // All three user icons glow simultaneously
           setTimeout(function () {
             if (gens.c3 !== myGen) return;
-            var el = document.getElementById(s.userId);
-            if (!el) return;
+            var el = document.getElementById(s.userId); if (!el) return;
             var bbox = el.getBBox ? el.getBBox() : null;
             if (bbox) el.style.transformOrigin = (bbox.x + bbox.width / 2) + 'px ' + (bbox.y + bbox.height / 2) + 'px';
             el.style.transition = 'filter 0.5s ease-out, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
             el.style.filter = 'drop-shadow(0 0 10px ' + s.color + ') drop-shadow(0 0 22px ' + s.color + ')';
             el.style.transform = 'scale(1.1)';
-            setTimeout(function () {
-              if (gens.c3 !== myGen) return;
-              el.style.transition = 'filter 0.6s ease-in, transform 0.6s ease-in';
-              el.style.filter = ''; el.style.transform = 'scale(1)';
-            }, 500);
-          }, s.pulseAt);
+            setTimeout(function () { if (gens.c3 !== myGen) return; el.style.transition = 'filter 0.6s ease-in, transform 0.6s ease-in'; el.style.filter = ''; el.style.transform = 'scale(1)'; }, 500);
+          }, 300);
 
-          // 2b. Chat bubble (node) slides in from the user side
+          // All nodes appear simultaneously
           setTimeout(function () {
             if (gens.c3 !== myGen) return;
-            var el = document.getElementById(s.nodeId);
-            if (!el) return;
+            var el = document.getElementById(s.nodeId); if (!el) return;
             el.style.animation = 'c3-node-in 0.7s cubic-bezier(0.22,1,0.36,1) both';
             var bg = document.getElementById(s.nodeId + '-bg');
-            if (bg) { bg.style.transition = 'opacity 0.7s cubic-bezier(0.22,1,0.36,1)'; bg.style.opacity = '1'; }
-          }, s.nodeAt);
+            if (bg) { bg.style.transition = 'opacity 0.7s'; bg.style.opacity = '1'; }
+          }, 600);
 
-          // 2c. Inner lines type-in inside the bubble
+          // Inner lines type-in simultaneously
           setTimeout(function () {
             if (gens.c3 !== myGen) return;
             s.lines.forEach(function (lid, i) {
-              var el = document.getElementById(lid);
-              if (!el) return;
+              var el = document.getElementById(lid); if (!el) return;
               var target = s.lineWidths[i];
               setTimeout(function () {
                 if (gens.c3 !== myGen) return;
                 var start = null, dur = 350 + i * 120;
-                (function step(ts) {
-                  if (gens.c3 !== myGen) return;
-                  if (!start) start = ts;
-                  var p = Math.min((ts - start) / dur, 1);
-                  var ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
-                  el.setAttribute('width', (ease * target).toFixed(3));
-                  if (p < 1) requestAnimationFrame(step);
-                })(performance.now());
+                (function step(ts) { if (gens.c3 !== myGen) return; if (!start) start = ts; var p = Math.min((ts - start) / dur, 1); var ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p; el.setAttribute('width', (ease * target).toFixed(3)); if (p < 1) requestAnimationFrame(step); })(performance.now());
               }, i * 180);
             });
-          }, s.nodeAt + 350);
+          }, 950);
 
-          // 2d. Dark wire draws from node toward robot
+          // All gray wires draw simultaneously
           setTimeout(function () {
             if (gens.c3 !== myGen) return;
-            var el = document.getElementById(s.darkId);
-            if (!el) return;
+            var el = document.getElementById(s.connId); if (!el) return;
             var len = el.getTotalLength ? el.getTotalLength() : 300;
-            el.style.strokeDasharray = len + ' ' + len;
-            el.style.strokeDashoffset = String(len);
+            el.style.strokeDasharray = len + ' ' + len; el.style.strokeDashoffset = String(len);
             void el.getBoundingClientRect();
             el.style.transition = 'stroke-dashoffset 0.9s cubic-bezier(0.4,0,0.2,1)';
             el.style.strokeDashoffset = '0';
-          }, s.darkAt);
+          }, 900);
 
-          // 2e. Colored connector highlights the active path
-          setTimeout(function () {
-            if (gens.c3 !== myGen) return;
-            var el = document.getElementById(s.connId);
-            if (!el) return;
-            var len = el.getTotalLength ? el.getTotalLength() : 80;
-            el.style.strokeDasharray = len + ' ' + len;
-            el.style.strokeDashoffset = String(len);
-            el.style.transition = 'stroke-dashoffset 0.55s cubic-bezier(0.4,0,0.2,1)';
-            el.style.strokeDashoffset = '0';
-          }, s.colorAt);
-
-          // 2f. Particle travels user → robot
-          setTimeout(function () {
-            if (gens.c3 !== myGen) return;
-            spawnParticle3(s.particlePath, s.color, 1100, true);
-          }, s.particleAt);
+          // All gradient lines travel simultaneously (after gray finishes at ~1800ms)
+          spawnGradientLine(s.connId, s.color, 1100, 1900);
         });
 
-        // ── 3. ROBOT LIGHTS UP ────────────────────────────────────
-        var robotGlowAt = 5400;
+        // ── PHASE 3: All lines arrive at ~3000ms ───────────────────
+        var arrivedAt = 3050;
+
+        // Robot glow
         setTimeout(function () {
           if (gens.c3 !== myGen) return;
           ['c3-robot-antenna', 'c3-robot-body', 'c3-robot-arm-l', 'c3-robot-arm-r'].forEach(function (id) {
             var el = document.getElementById(id);
             if (el) el.style.animation = 'c3-robot-glow 1.4s ease-out both';
           });
-        }, robotGlowAt);
+        }, arrivedAt);
 
-        // ── 4. PHASE 2: BOT → USER (response) ────────────────────
-        var botToUser = [
-          {
-            userId: 'c3-user-top', connId: 'c3-conn-top-c', nodeId: 'c3-node-top',
-            particlePath: 'c3-conn-top', color: '#8EDFFF', fireAt: robotGlowAt + 800
-          },
-          {
-            userId: 'c3-user-mid', connId: 'c3-conn-mid-c', nodeId: 'c3-node-mid',
-            particlePath: 'c3-conn-mid', color: '#8EDFFF', fireAt: robotGlowAt + 1300
-          },
-          {
-            userId: 'c3-user-bot', connId: 'c3-conn-bot-c', nodeId: 'c3-node-bot',
-            particlePath: 'c3-conn-bot', color: '#8EDFFF', fireAt: robotGlowAt + 1800
-          }
-        ];
+        // Ripple rings expand from robot center
+        spawnRipple(arrivedAt + 100);
 
-        botToUser.forEach(function (s) {
-          // Particle: robot → user
-          setTimeout(function () {
-            if (gens.c3 !== myGen) return;
-            spawnParticle3(s.particlePath, s.color, 1100, false);
-          }, s.fireAt);
-          // Node pulses to indicate response received
-          setTimeout(function () {
-            if (gens.c3 !== myGen) return;
-            var el = document.getElementById(s.nodeId);
-            if (!el) return;
-            el.style.transition = 'filter 0.4s ease-out';
-            el.style.filter = 'drop-shadow(0 0 8px ' + s.color + ') drop-shadow(0 0 20px rgba(142,223,255,0.4))';
-            setTimeout(function () {
-              if (gens.c3 !== myGen) return;
-              el.style.transition = 'filter 0.6s ease-in';
-              el.style.filter = '';
-            }, 500);
-          }, s.fireAt + 900);
-          // User icon receives response glow
-          setTimeout(function () {
-            if (gens.c3 !== myGen) return;
-            var el = document.getElementById(s.userId);
-            if (!el) return;
-            el.style.transition = 'filter 0.5s ease-out, transform 0.3s ease-out';
-            el.style.filter = 'drop-shadow(0 0 8px #8EDFFF)';
-            el.style.transform = 'scale(1.06)';
-            setTimeout(function () {
-              if (gens.c3 !== myGen) return;
-              el.style.transition = 'filter 0.8s ease-in, transform 0.5s ease-in';
-              el.style.filter = ''; el.style.transform = '';
-            }, 600);
-          }, s.fireAt + 1100);
-        });
-
-        // ── 5. ROBOT EYE BLINK ────────────────────────────────────
+        // Eye blink
         setTimeout(function () {
           if (gens.c3 !== myGen) return;
           ['c3-robot-eye-l', 'c3-robot-eye-r'].forEach(function (id) {
             var el = document.getElementById(id);
             if (el) el.style.animation = 'c3-blink 0.35s ease-in-out 1';
           });
-        }, robotGlowAt + 400);
+        }, arrivedAt + 400);
 
-        // ── 6. CONTINUOUS PARTICLES along connectors ──────────────
+        // ── PHASE 4: Result tag fades in after ripple ─────────────
         setTimeout(function () {
           if (gens.c3 !== myGen) return;
-          var pairs = [
-            { id: 'c3-conn-top', color: '#F19B31' },
-            { id: 'c3-conn-mid', color: '#D0595A' },
-            { id: 'c3-conn-bot', color: '#FFD23F' }
-          ];
-          pairs.forEach(function (p, i) {
-            (function loop(dir) {
-              if (gens.c3 !== myGen) return;
-              spawnParticle3(p.id, i === 1 ? '#8EDFFF' : p.color, 900 + i * 150, dir);
-              setTimeout(function () { loop(!dir); }, 1400 + i * 250);
-            })(true);
-          });
-        }, robotGlowAt + 2600);
-
-        // ── HELPER ────────────────────────────────────────────────
-        function spawnParticle3(pathId, color, dur, reverse) {
-          var path = document.getElementById(pathId);
-          var container = document.getElementById('c3-particles');
-          if (!path || !container) return;
-          var len = path.getTotalLength ? path.getTotalLength() : 200;
-          var dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-          dot.setAttribute('r', '2.2'); dot.setAttribute('fill', color); dot.setAttribute('opacity', '0');
-          container.appendChild(dot);
+          var tag = document.getElementById('c3-result-tag'); if (!tag) return;
           var start = null;
-          (function step(ts) {
+          (function fade(ts) {
             if (!start) start = ts;
-            var p = Math.min((ts - start) / dur, 1);
-            var t = reverse ? (1 - p) : p;
-            var pt = path.getPointAtLength(t * len);
-            dot.setAttribute('cx', pt.x.toFixed(2));
-            dot.setAttribute('cy', pt.y.toFixed(2));
-            var fade = p < 0.1 ? p * 10 : p > 0.85 ? (1 - p) / 0.15 : 1;
-            dot.setAttribute('opacity', (fade * 0.9).toFixed(2));
-            if (p < 1) requestAnimationFrame(step);
-            else { if (container.contains(dot)) container.removeChild(dot); }
+            var p = Math.min((ts - start) / 600, 1);
+            tag.setAttribute('opacity', p.toFixed(3));
+            if (p < 1) requestAnimationFrame(fade);
           })(performance.now());
-        }
+        }, arrivedAt + 1400);
 
       }
 
@@ -3186,23 +3187,7 @@
         ['c4-scan1', 'c4-scan2', 'c4-scan3'].forEach(function (id) { var el = document.getElementById(id); if (el) el.setAttribute('opacity', '0'); });
         ['c4-p1-border', 'c4-p2-border', 'c4-p3-border'].forEach(function (id) { var el = document.getElementById(id); if (el) el.style.animation = 'none'; });
 
-        // ── 1. DIAGONAL GREEN GLOW SWEEP ─────────────────────────
-        setTimeout(function () {
-          var sweep = document.getElementById('c4-diag-sweep');
-          if (!sweep) return;
-          var start = null, dur = 2200;
-          sweep.setAttribute('opacity', '0');
-          (function step(ts) {
-            if (!start) start = ts;
-            var p = Math.min((ts - start) / dur, 1);
-            var x = -564 + p * 1128; // sweep left to right, extra wide
-            var fade = p < 0.12 ? p / 0.12 : p > 0.88 ? (1 - p) / 0.12 : 1;
-            sweep.setAttribute('transform', 'translate(' + x.toFixed(1) + ' 0)');
-            sweep.setAttribute('opacity', (fade * 0.9).toFixed(2));
-            if (p < 1) requestAnimationFrame(step);
-            else sweep.setAttribute('opacity', '0');
-          })(performance.now());
-        }, 800);
+        // ── 1. DIAGONAL SWEEP — removed ───────────────────────────
 
         // ── 2. PANELS FADE IN LEFT → RIGHT ───────────────────────
         var panels = [
@@ -3277,13 +3262,12 @@
             el.style.animation = 'c4-count-tick 0.6s ease-out both';
           }, p.countAt);
 
-          // Rows reveal bottom → top with slide-up per row
+          // Rows reveal top → bottom with slide-up per row
           setTimeout(function () {
             var rows = document.getElementById(p.rowsId);
             if (!rows) return;
             rows.style.opacity = '1';
             var children = rows.children;
-            var numRows = Math.ceil(children.length / 2); // 5 rows
             for (var i = 0; i < children.length; i++) {
               (function (el, delay) {
                 el.style.opacity = '0';
@@ -3293,35 +3277,9 @@
                   el.style.opacity = String(parseFloat(el.getAttribute('opacity') || 0.2));
                   el.style.transform = 'translateY(0)';
                 }, delay);
-              })(children[i], (numRows - 1 - Math.floor(i / 2)) * 200 + (i % 2) * 80);
+              })(children[i], Math.floor(i / 2) * 200 + (i % 2) * 80);
             }
           }, p.rowsAt);
-
-          // Scanning highlight passes over rows
-          setTimeout(function () {
-            var scan = document.getElementById(p.scanId);
-            if (!scan) return;
-            var rowY = [618, 632, 646, 660, 674];
-            var rowIdx = 0;
-            function nextRow() {
-              if (rowIdx >= rowY.length) {
-                scan.setAttribute('opacity', '0');
-                return;
-              }
-              scan.setAttribute('y', rowY[rowIdx]);
-              scan.setAttribute('opacity', '0');
-              var start = null, dur = 300;
-              (function step(ts) {
-                if (!start) start = ts;
-                var prog = Math.min((ts - start) / dur, 1);
-                var fade = prog < 0.3 ? prog / 0.3 : prog > 0.7 ? (1 - prog) / 0.3 : 1;
-                scan.setAttribute('opacity', (fade * 0.06).toFixed(3));
-                if (prog < 1) requestAnimationFrame(step);
-                else { rowIdx++; setTimeout(nextRow, 120); }
-              })(performance.now());
-            }
-            setTimeout(nextRow, 100);
-          }, p.rowsAt + 200);
         });
 
       }
